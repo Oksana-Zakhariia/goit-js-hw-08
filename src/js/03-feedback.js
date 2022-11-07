@@ -28,8 +28,8 @@ function onFormSubmit(evt) {
  function onUpdatePage() {
     const savedInfo = JSON.parse(localStorage.getItem(STORAGE_KEY));
     if ( savedInfo ) {
-        form.email.value = savedInfo.message 
-        form.input.value = savedInfo.email
+        form.email.value = savedInfo.message || "";
+        form.input.value = savedInfo.email || '';
     }
  }
 onUpdatePage()
