@@ -7,7 +7,7 @@ const refs = {
 }
 const STORAGE_KEY = 'feedback-form-state';
 const savedInfo = JSON.parse(localStorage.getItem(STORAGE_KEY))|| "";
-const formData = {
+let formData = {
     message: savedInfo.message || "",
     email: savedInfo.email || '',    
 }
@@ -17,6 +17,12 @@ refs.form.addEventListener('input', throttle(onFormInput, 500))
 refs.form.addEventListener('submit', onFormSubmit)
 
 function onFormInput(evt) {
+    if (savedInfo.message) {
+        formData.message.textcontent = formData.message.value
+    };
+    if (savedInfo.email) {
+        formData.email.textcontent = formData.email.value
+    };
     formData[evt.target.name] = evt.target.value    
     localStorage.setItem(STORAGE_KEY, JSON.stringify(formData))
     console.log(localStorage.getItem(STORAGE_KEY));   
@@ -25,11 +31,10 @@ function onFormSubmit(evt) {
     evt.preventDefault();
     evt.currentTarget.reset()
     localStorage.removeItem(STORAGE_KEY)
-    console.log(formData)
+    console.log(formData)   
 }
 
- function onUpdatePage() {
-    
+ function onUpdatePage() {    
     if ( savedInfo ) {
         refs.textarea.value = savedInfo.message || "";
         refs.input.value = savedInfo.email || '';
